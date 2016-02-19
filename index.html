@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="pebble-slate/css/slate.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <h1 class="title">Compass Companion</h1>
+
+  <div class="item-container">
+    <div class="item-container-context">
+      <p id="desc" class="item">
+        Enter up to 5 stop IDs below.
+      </p>
+    </div>
+  </div>
+
+  <div class="item-container">
+      <div class="item-container-content">
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id="stopOne" type="number" min="0" class="item-input" name="input-1" maxlength="5" placeholder="Stop 1">
+          </div>
+        </label>
+
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id="stopTwo" type="number" min="0" class="item-input" name="input-1" maxlength="5" placeholder="Stop 2">
+          </div>
+        </label>
+
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id="stopThree" type="number" min="0" class="item-input" name="input-1" maxlength="5" placeholder="Stop 3">
+          </div>
+        </label>
+
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id="stopFour" type="number" min="0" class="item-input" name="input-1" maxlength="5" placeholder="Stop 4">
+          </div>
+        </label>
+
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id="stopFive" type="number" min="0" class="item-input" name="input-1" maxlength="5" placeholder="Stop 5">
+          </div>
+        </label>
+      </div>
+  </div>
+
+  <div class="item-container">
+		<div class="button-container">
+			<input id="submitButton" type="button" class="item-button" value="SAVE">
+		</div>
+	</div>
+  <div id="buttonfooter" class="item-container-footer">
+    <br>
+    Powered by TransLink
+  </div>
+
+  <script src="pebble-slate/js/slate.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
