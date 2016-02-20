@@ -8,33 +8,65 @@ var xhrRequest = function (url, type, callback) {
   xhr.send();
 };
 
+var inputs = [];
 var stops = [];
+var routes = [];
+var names = [];
+var times = [];
 
-function getStops() {
-	function getStopsCallback(responseText) {
-			var json = JSON.parse(responseText);
-			console.log(responseText);
-		
-			if (json.Code) {
-				console.log("Error " + json.Code);
-			} else {
-				console.log(json[0].RouteNo);
-			}
+function getStopsCallback(responseText) {
+	// Parse the received info
+	var json = JSON.parse(responseText);
+	console.log(responseText);
+
+	if (json.Code) {
+		// If an error was returned, log it (I'll have to do something to display errors on the watch)
+		console.log("Error " + json.Code);
+	} else {
+		// Else push the next arriving bus info to the arrays
+		routes.push(json[0].RouteNo);
+		names.push(json[0].Schedules[0].Destination);
+		times.push(json[0].Schedules[0].ExpectedCountdown);
 	}
 	
+	// Once we've fetched all the info, send it to the watch
+	if (routes.length == stops.length) {
+		sendStops();
+	}
+}
+
+function getStops() {
+	// Parse each inputted stop and send an HTTP request
 	for (var i = 0; i < stops.length; i++) {
 		console.log("Parsing stop " + i);
 		var requrl;
 		
 		if (isNaN(stops[i])) {
-			console.log("NaN");
+			console.log("Stop " + i + " is NaN");
 		} else {
-			console.log(stops[i]);
+			console.log("Stop " + i + " is " + stops[i]);
 			requrl = "http://api.translink.ca/rttiapi/v1/stops/" + stops[i] + "/estimates?apikey=hCnIQTl1g1LNlWOZhEfa";
-			console.log(requrl);
+			console.log("Stop " + i + " URL is " + requrl);
 			xhrRequest(requrl, "GET", getStopsCallback);
 		}
 	}
+	
+	// All done with the stops!
+	console.log("=====Parsed all stops=====");
+}
+
+function sendStops() {
+	console.log("Routes to send: " + routes);
+	console.log("Names to send: " + names);
+	console.log("Times to send: " + times);	
+}
+
+function wipeArrays() {
+	inputs = [];
+	stops = [];
+	routes = [];
+	names = [];
+	times = [];
 }
 
 Pebble.addEventListener('ready', function() {
@@ -44,9 +76,6 @@ Pebble.addEventListener('ready', function() {
 Pebble.addEventListener('appmessage',
   function(e) {
     console.log('AppMessage received!');
-    console.log('Message contents: ' + JSON.stringify(e.payload));
-		
-		getStops();
   }
 );
 
@@ -64,8 +93,23 @@ Pebble.addEventListener('webviewclosed', function(e) {
   var configData = JSON.parse(decodeURIComponent(e.response));
 
   console.log('Configuration page returned: ' + JSON.stringify(configData));
-	// Add stops to array
-	stops.push(parseInt(configData.stopOne), parseInt(configData.stopTwo), parseInt(configData.stopThree), parseInt(configData.stopFour), parseInt(configData.stopFive));
+	
+	// Clear arrays
+	wipeArrays();
+	
+	// Grab all user inputted stops
+	inputs.push(parseInt(configData.stopOne), parseInt(configData.stopTwo), parseInt(configData.stopThree), parseInt(configData.stopFour), parseInt(configData.stopFive));
+	
+	// Discard any empty stop inputs
+	for (var i = 0; i < inputs.length; i++) {
+		if (isNaN(inputs[i])) {
+			console.log("Stop " + i + " is NaN, not adding to stops");
+		} else {
+			stops.push(inputs[i]);
+		}
+	}
+	
+	// Fetch info from TransLink
 	getStops();
 	
   /*if (configData.stopOne >= 0) { // If we have received the correct data (not sure why we wouldn't, but who knows?)

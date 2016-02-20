@@ -101,6 +101,6 @@ static void deinit() {
 
 int main(void) {
 	init();
-  	app_event_loop();
+  app_event_loop();
  	deinit();
 }
