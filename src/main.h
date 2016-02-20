@@ -7,9 +7,9 @@
 
 MenuLayer *menu_layer;
 
-char* stop_title;
-char* destination;
-char* arrival_time;
+char * stop_title;
+char * destination;
+char * arrival_time;
 
 void init_appmessage();
 void inbox_received_handler(DictionaryIterator *iter, void *context);

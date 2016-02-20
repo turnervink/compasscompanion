@@ -5,7 +5,7 @@
         "stopRoutes": 0
     },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "turner.vink@me.com",
     "enableMultiJS": true,

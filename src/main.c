@@ -9,48 +9,23 @@ static void menu_draw_header(GContext* ctx, const Layer *cell_layer, uint16_t se
 }
 
 static void menu_draw_row(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
-	
-	
-	/*switch(cell_index->row) {
+	switch(cell_index->row) {
 		case 0:
-			menu_cell_basic_draw(ctx, cell_layer, "Stop 1", "000000", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, "11111", "Destination", NULL);
 			break;
 		case 1:
-			menu_cell_basic_draw(ctx, cell_layer, "Stop 2", "000001", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, "22222", "Destination", NULL);
 			break;
 		case 2:
-			menu_cell_basic_draw(ctx, cell_layer, "Stop 3", "000002", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, "33333", "Destination", NULL);
 			break;
 		case 3:
-			menu_cell_basic_draw(ctx, cell_layer, "Stop 4", "000003", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, "44444", "Destination", NULL);
 			break;
 		case 4:
-			menu_cell_basic_draw(ctx, cell_layer, "Stop 5", "000004", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, "55555", "Destination", NULL);
 			break;	
-	}*/
-	
-	
-	
-	uint16_t counter = 0;
-	char titlestr[strlen(stop_title) + 1];
-	strcpy(titlestr, stop_title);
-	APP_LOG(APP_LOG_LEVEL_INFO, "%s", titlestr);
-	
-	char *token = strtok(titlestr, "\u00BB");
-	
-	while (token != NULL ) {
-		//APP_LOG(APP_LOG_LEVEL_INFO, "title: %s", title);
-		menu_cell_basic_draw(ctx, cell_layer, token, "test", NULL);
-		
-		if (cell_index->row == counter) {
-			break;
-		}
-		
-		token = strtok(NULL, "\u00BB");
-		counter++;
 	}
-	
-	APP_LOG(APP_LOG_LEVEL_INFO, "End drawing rows");
 }
 
 static void menu_draw_separator(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
@@ -76,7 +51,7 @@ static void main_window_load(Window *window) {
 	
 	menu_layer = menu_layer_create(bounds);
 	menu_layer_set_normal_colors(menu_layer, GColorWhite, GColorBlack);
-	menu_layer_set_highlight_colors(menu_layer, GColorCobaltBlue, GColorWhite);
+	menu_layer_set_highlight_colors(menu_layer, GColorVividCerulean, GColorWhite);
 	
 	menu_layer_set_callbacks(menu_layer, NULL, (MenuLayerCallbacks) {
 		.draw_header = menu_draw_header,
