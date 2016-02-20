@@ -10,9 +10,10 @@ var xhrRequest = function (url, type, callback) {
 
 var inputs = [];
 var stops = [];
-var routes = [];
-var names = [];
-var times = [];
+var stopscounter = [];
+var routes;
+var names;
+var times;
 
 function getStopsCallback(responseText) {
 	// Parse the received info
@@ -22,16 +23,22 @@ function getStopsCallback(responseText) {
 	if (json.Code) {
 		// If an error was returned, log it (I'll have to do something to display errors on the watch)
 		console.log("Error " + json.Code);
+		stopscounter.push(json.Code);
+		routes += "Error " + json.Code + "\u00BB";
+		names += "Error " + json.Code + "\u00BB";
+		times += "Error " + json.Code + "\u00BB";
 	} else {
 		// Else push the next arriving bus info to the arrays
-		routes.push(json[0].RouteNo);
-		names.push(json[0].Schedules[0].Destination);
-		times.push(json[0].Schedules[0].ExpectedCountdown);
+		stopscounter.push(json[0].RouteNo);
+		routes += json[0].RouteNo + "\u00BB";
+		names += json[0].Schedules[0].Destination + "\u00BB";
+		times += json[0].Schedules[0].ExpectedCountdown + "\u00BB";
 	}
 	
 	// Once we've fetched all the info, send it to the watch
-	if (routes.length == stops.length) {
-		sendStops();
+	if (stopscounter.length == stops.length) {
+		console.log("Sending data");
+		sendData();
 	}
 }
 
@@ -55,18 +62,32 @@ function getStops() {
 	console.log("=====Parsed all stops=====");
 }
 
-function sendStops() {
+function sendData() {
 	console.log("Routes to send: " + routes);
 	console.log("Names to send: " + names);
-	console.log("Times to send: " + times);	
+	console.log("Times to send: " + times);
+	
+	console.log("Sending config settings");
+    Pebble.sendAppMessage({
+			stopRoutes: routes + "\0",
+			stopDests: names,
+			arrivalTimes: times
+    }, function(e) {
+      console.log('Send successful!');
+			console.log(e);
+    }, function(e) {
+      console.log('Send failed!');
+			console.log(e);
+    });
 }
 
 function wipeArrays() {
 	inputs = [];
 	stops = [];
-	routes = [];
-	names = [];
-	times = [];
+	stopscounter = [];
+	routes = "";
+	names = "";
+	times = "";
 }
 
 Pebble.addEventListener('ready', function() {

@@ -1,10 +1,8 @@
 {
     "appKeys": {
-        "stopFive": 0,
-        "stopFour": 0,
-        "stopOne": 0,
-        "stopThree": 0,
-        "stopTwo": 0
+        "arrivalTimes": 2,
+        "stopDests": 1,
+        "stopRoutes": 0
     },
     "capabilities": [
         ""

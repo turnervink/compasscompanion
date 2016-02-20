@@ -1,7 +1,8 @@
 #include <pebble.h>
+#include "main.h"
 
 static Window *main_window, *zero_window, *one_window;
-static MenuLayer *menu_layer;
+MenuLayer *menu_layer;
 
 static void menu_draw_header(GContext* ctx, const Layer *cell_layer, uint16_t section_index, void *data) {
 	
@@ -10,7 +11,7 @@ static void menu_draw_header(GContext* ctx, const Layer *cell_layer, uint16_t se
 static void menu_draw_row(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
 	
 	
-	switch(cell_index->row) {
+	/*switch(cell_index->row) {
 		case 0:
 			menu_cell_basic_draw(ctx, cell_layer, "Stop 1", "000000", NULL);
 			break;
@@ -26,15 +27,39 @@ static void menu_draw_row(GContext* ctx, const Layer *cell_layer, MenuIndex *cel
 		case 4:
 			menu_cell_basic_draw(ctx, cell_layer, "Stop 5", "000004", NULL);
 			break;	
+	}*/
+	
+	
+	
+	uint16_t counter = 0;
+	char titlestr[strlen(stop_title) + 1];
+	strcpy(titlestr, stop_title);
+	APP_LOG(APP_LOG_LEVEL_INFO, "%s", titlestr);
+	
+	char *token = strtok(titlestr, "\u00BB");
+	
+	while (token != NULL ) {
+		//APP_LOG(APP_LOG_LEVEL_INFO, "title: %s", title);
+		menu_cell_basic_draw(ctx, cell_layer, token, "test", NULL);
+		
+		if (cell_index->row == counter) {
+			break;
+		}
+		
+		token = strtok(NULL, "\u00BB");
+		counter++;
 	}
+	
+	APP_LOG(APP_LOG_LEVEL_INFO, "End drawing rows");
 }
 
 static void menu_draw_separator(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
+	
 }
 
 static uint16_t menu_get_rows(MenuLayer *menu_layer, uint16_t section_index, void *data)
 {
-	return 5;
+	return 3;
 }
 
 static void menu_select(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
@@ -91,6 +116,8 @@ static void init() {
 		.load = zero_window_load,
 		.unload = zero_window_unload
 	});
+	
+	init_appmessage();
 	
 	window_stack_push(main_window, true);
 }
