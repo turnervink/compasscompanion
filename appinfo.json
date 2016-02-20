@@ -1,5 +1,11 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "stopFive": 0,
+        "stopFour": 0,
+        "stopOne": 0,
+        "stopThree": 0,
+        "stopTwo": 0
+    },
     "capabilities": [
         ""
     ],
@@ -12,6 +18,11 @@
     },
     "sdkVersion": "3",
     "shortName": "Compass Companion",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
     "uuid": "68cf8331-5abf-449a-bc57-ed0f6518f019",
     "versionLabel": "1.0",
     "watchapp": {
