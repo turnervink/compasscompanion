@@ -70,16 +70,16 @@ function getStops(i) {
 					// If an error was returned, log it (I'll have to do something to display errors on the watch)
 					//console.log("Error " + json.Code);
 					stopscounter.push(json.Code);
-					routes[i] = "Error " + json.Code + "\u00BB";
-					names[i] = "Error " + json.Code + "\u00BB";
-					times[i] = "Error " + json.Code + "\u00BB";
+					routes[i] = "Error " + json.Code;
+					names[i] = "Error " + json.Code;
+					times[i] = "Error " + json.Code;
 				} else {
 					// Else push the next arriving bus info to the arrays
 					stopscounter.push(json[0].RouteNo);
 					console.log("Stop " + i + ", " + json[0].RouteNo + json[0].Schedules[0].Destination + json[0].Schedules[0].ExpectedCountdown);
-					routes[i] = json[0].RouteNo + "\u00BB";
-					names[i] = json[0].Schedules[0].Destination + "\u00BB";
-					times[i] = json[0].Schedules[0].ExpectedCountdown + "\u00BB";
+					routes[i] = json[0].RouteNo;
+					names[i] = json[0].Schedules[0].Destination;
+					times[i] = json[0].Schedules[0].ExpectedCountdown;
 				}
 			
 				// All done with the stops!
@@ -99,7 +99,7 @@ function sendData() {
 	console.log("Names to send: " + names);
 	console.log("Times to send: " + times);
 	
-	console.log("Sending config settings");
+	/*console.log("Sending arrivals info");
     Pebble.sendAppMessage({
 			stopRoutes: routes,
 			stopDests: names,
@@ -110,7 +110,27 @@ function sendData() {
     }, function(e) {
       console.log('Send failed!');
 			console.log(e);
-    });
+    });*/
+	
+	var routes_dict = {};
+	var names_dict = {};
+	var times_dict= {};
+	
+	for (var i = 0; i < routes.length; i++ ) {
+		routes_dict["route" + i] = routes[i];
+		console.log("Routes dictionary " + i + ": " + routes_dict["route" + i]);
+	}
+	
+	for (i = 0; i < names.length; i++ ) {
+		names_dict["name" + i] = names[i];
+		console.log("Names dictionary " + i + ": " + names_dict["name" + i]);
+	}
+	
+	for (i = 0; i < times.length; i++ ) {
+		times_dict["times" + i] = times[i];
+		console.log("Times dictionary " + i + ": " + times_dict["times" + i]);
+	}
+	
 }
 
 function wipeArrays() {
@@ -135,7 +155,7 @@ Pebble.addEventListener('appmessage',
 //===== Config =====//
 
 Pebble.addEventListener('showConfiguration', function() {
-  var url = 'http://970ce33.ngrok.com';
+  var url = 'http://c055b373.ngrok.io';
 
   console.log('Showing configuration page: ' + url);
 

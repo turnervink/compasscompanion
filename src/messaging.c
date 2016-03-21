@@ -1,6 +1,9 @@
 #include <pebble.h>
 #include "main.h"
 
+static uint8_t title_amt = 0;
+static char** stop_titles;
+
 void init_appmessage() {
 	app_message_register_inbox_received(inbox_received_handler);
 	app_message_register_inbox_dropped(inbox_dropped_callback);
@@ -19,18 +22,15 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
 	Tuple *arrival_time_tup = dict_find(iter, KEY_ARRIVAL_TIMES);
 	
 	if (stop_title_tup) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "Stop titles: %s", stop_title_tup->value->cstring);
-		stop_title = stop_title_tup->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "Stops: %s", destination_tup->value->cstring);
 	}
 	
 	if (destination_tup) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "Destinations: %s", destination_tup->value->cstring);
-		destination = destination_tup->value->cstring;
 	}
 	
 	if (arrival_time_tup) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "Arrival times: %s", arrival_time_tup->value->cstring);
-		arrival_time = arrival_time_tup->value->cstring;
 	}
 	
 	menu_layer_reload_data(menu_layer);
