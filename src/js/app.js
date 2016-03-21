@@ -112,25 +112,50 @@ function sendData() {
 			console.log(e);
     });*/
 	
+	var number_of_stops = stops.length;
 	var routes_dict = {};
 	var names_dict = {};
-	var times_dict= {};
+	var times_dict = {};
 	
 	for (var i = 0; i < routes.length; i++ ) {
-		routes_dict["route" + i] = routes[i];
-		console.log("Routes dictionary " + i + ": " + routes_dict["route" + i]);
+		routes_dict["routes" + i] = routes[i];
+		routes_dict["names" + i] = names[i];
+		routes_dict["times" + i] = times[i];
+		console.log("Routes " + i + ": " + routes_dict["routes" + i]);
+		console.log("Names " + i + ": " + routes_dict["names" + i]);
+		console.log("Times " + i + ": " + routes_dict["times" + i]);
 	}
 	
-	for (i = 0; i < names.length; i++ ) {
-		names_dict["name" + i] = names[i];
-		console.log("Names dictionary " + i + ": " + names_dict["name" + i]);
+	/*for (i = 0; i < names.length; i++ ) {
+		names_dict["names" + i] = names[i];
+		console.log("Names dictionary " + i + ": " + names_dict["names" + i]);
 	}
 	
 	for (i = 0; i < times.length; i++ ) {
 		times_dict["times" + i] = times[i];
 		console.log("Times dictionary " + i + ": " + times_dict["times" + i]);
-	}
+	}*/
 	
+	/*Pebble.sendAppMessage({
+			numberOfStops: number_of_stops,
+    }, function(e) {
+      console.log('Send successful!');
+			console.log(e);
+    }, function(e) {
+      console.log('Send failed!');
+			console.log(e);
+    });*/
+	
+	 Pebble.sendAppMessage(routes_dict,
+        function(e) {
+          console.log("Bus info sent to Pebble successfully!");
+					console.log(e);
+        },
+        function(e) {
+          console.log("Error sending bus info to Pebble!");
+					console.log(e);
+        }
+   );
 }
 
 function wipeArrays() {

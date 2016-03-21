@@ -11,19 +11,19 @@ static void menu_draw_header(GContext* ctx, const Layer *cell_layer, uint16_t se
 static void menu_draw_row(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data) {
 	switch(cell_index->row) {
 		case 0:
-			menu_cell_basic_draw(ctx, cell_layer, "11111", "Destination", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, STOP_NAMES[0], DESTS[0], NULL);
 			break;
 		case 1:
-			menu_cell_basic_draw(ctx, cell_layer, "22222", "Destination", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, STOP_NAMES[1], DESTS[1], NULL);
 			break;
 		case 2:
-			menu_cell_basic_draw(ctx, cell_layer, "33333", "Destination", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, STOP_NAMES[2], DESTS[2], NULL);
 			break;
 		case 3:
-			menu_cell_basic_draw(ctx, cell_layer, "44444", "Destination", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, STOP_NAMES[3], DESTS[3], NULL);
 			break;
 		case 4:
-			menu_cell_basic_draw(ctx, cell_layer, "55555", "Destination", NULL);
+			menu_cell_basic_draw(ctx, cell_layer, STOP_NAMES[4], DESTS[4], NULL);
 			break;	
 	}
 }
@@ -34,7 +34,7 @@ static void menu_draw_separator(GContext* ctx, const Layer *cell_layer, MenuInde
 
 static uint16_t menu_get_rows(MenuLayer *menu_layer, uint16_t section_index, void *data)
 {
-	return 3;
+	return tot_stops;
 }
 
 static void menu_select(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
