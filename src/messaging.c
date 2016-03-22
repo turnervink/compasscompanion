@@ -8,7 +8,7 @@ const char* STOP_NAMES[5] = {};
 int tot_stops = 0;
 
 const char* DESTS[5] = {};
-const char* TIMES[5] = {};
+int TIMES[5] = {};
 
 void init_appmessage() {
 	app_message_register_inbox_received(inbox_received_handler);
@@ -126,28 +126,28 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
 	
 	
 	if (times0) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "times0: %s", times0->value->cstring);
-		TIMES[0] = times0->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "times0: %d", times0->value->int8);
+		TIMES[0] = times0->value->int8;
 	}
 	
 	if (times1) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "times1: %s", times1->value->cstring);
-		TIMES[1] = times1->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "times1: %d", times1->value->int8);
+		TIMES[1] = times1->value->int8;
 	}
 	
 	if (times2) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "times2: %s", times2->value->cstring);
-		TIMES[2] = times2->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "times2: %d", times2->value->int8);
+		TIMES[2] = times2->value->int8;
 	}
 	
 	if (times3) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "times3: %s", times3->value->cstring);
-		TIMES[3] = times3->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "times3: %d", times3->value->int8);
+		TIMES[3] = times3->value->int8;
 	}
 	
 	if (times4) {
-		APP_LOG(APP_LOG_LEVEL_INFO, "times4: %s", times4->value->cstring);
-		TIMES[4] = times4->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_INFO, "times4: %d", times4->value->int8);
+		TIMES[4] = times4->value->int8;
 	}
 	
 	/*int a;

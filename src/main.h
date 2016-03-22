@@ -39,4 +39,4 @@ const char* STOP_NAMES[5];
 int tot_stops;
 
 const char* DESTS[5];
-const char* TIMES[5];
+int TIMES[5];

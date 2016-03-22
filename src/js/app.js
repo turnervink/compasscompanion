@@ -122,7 +122,7 @@ function sendData() {
 	for (var i = 0; i < routes.length; i++ ) {
 		routes_dict["routes" + i] = routes[i];
 		routes_dict["names" + i] = names[i];
-		routes_dict["times" + i] = times[i];
+		routes_dict["times" + i] = parseInt(times[i]);
 		console.log("Routes " + i + ": " + routes_dict["routes" + i]);
 		console.log("Names " + i + ": " + routes_dict["names" + i]);
 		console.log("Times " + i + ": " + routes_dict["times" + i]);
