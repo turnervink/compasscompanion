@@ -5,7 +5,7 @@ static uint8_t title_amt = 0;
 static char** stop_titles;
 
 const char* STOP_NAMES[5] = {};
-int tot_stops;
+int tot_stops = 0;
 
 const char* DESTS[5] = {};
 const char* TIMES[5] = {};
@@ -44,6 +44,7 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
 	if (number_of_stops_tup) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "Number of stops: %d", number_of_stops_tup->value->int8);
 		//number_of_stops = number_of_stops_tup->value->int8;
+		tot_stops = number_of_stops_tup->value->int8;
 	}
 	
 	Tuple *routes0 = dict_find(iter, KEY_ROUTE_0);
@@ -67,31 +68,31 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
 	if (routes0) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "routes0: %s", routes0->value->cstring);
 		STOP_NAMES[0] = routes0->value->cstring;
-		tot_stops = tot_stops + 1;
+		//tot_stops = tot_stops + 1;
 	}
 	
 	if (routes1) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "routes1: %s", routes1->value->cstring);
 		STOP_NAMES[1] = routes1->value->cstring;
-		tot_stops = tot_stops + 1;
+		//tot_stops = tot_stops + 1;
 	}
 	
 	if (routes2) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "routes2: %s", routes2->value->cstring);
 		STOP_NAMES[2] = routes2->value->cstring;
-		tot_stops = tot_stops + 1;
+		//tot_stops = tot_stops + 1;
 	}
 	
 	if (routes3) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "routes3: %s", routes3->value->cstring);
 		STOP_NAMES[3] = routes3->value->cstring;
-		tot_stops = tot_stops + 1;
+		//tot_stops = tot_stops + 1;
 	}
 	
 	if (routes4) {
 		APP_LOG(APP_LOG_LEVEL_INFO, "routes4: %s", routes4->value->cstring);
 		STOP_NAMES[4] = routes4->value->cstring;
-		tot_stops = tot_stops + 1;
+		//tot_stops = tot_stops + 1;
 	}
 	
 	
@@ -157,6 +158,8 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
 	}*/
 	
 	menu_layer_reload_data(menu_layer);
+	
+	//tot_stops = 0;
 	
 	
 	/*const uint8_t key_count = 15;

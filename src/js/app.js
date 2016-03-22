@@ -117,6 +117,8 @@ function sendData() {
 	var names_dict = {};
 	var times_dict = {};
 	
+	routes_dict.numberOfStops = number_of_stops;
+	
 	for (var i = 0; i < routes.length; i++ ) {
 		routes_dict["routes" + i] = routes[i];
 		routes_dict["names" + i] = names[i];

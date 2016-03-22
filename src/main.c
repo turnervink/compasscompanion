@@ -32,9 +32,9 @@ static void menu_draw_separator(GContext* ctx, const Layer *cell_layer, MenuInde
 	
 }
 
-static uint16_t menu_get_rows(MenuLayer *menu_layer, uint16_t section_index, void *data)
-{
+static uint16_t menu_get_rows(MenuLayer *menu_layer, uint16_t section_index, void *data) {
 	return tot_stops;
+	tot_stops = 0;
 }
 
 static void menu_select(MenuLayer *menu_layer, MenuIndex *cell_index, void *data) {
