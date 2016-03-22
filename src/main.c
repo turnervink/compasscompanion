@@ -73,7 +73,11 @@ static void main_window_unload(Window *window) {
 }
 
 static void info_window_load(Window *window) {
-	time_layer = text_layer_create(GRect(0, 0, 144, 168));
+	GRect bounds = layer_get_bounds(window_get_root_layer(window));
+	
+	time_layer = text_layer_create(GRect(0, 15, bounds.size.w, bounds.size.h));
+	text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS));
+	text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
 	
 	static char arrival[5];
 	snprintf(arrival, sizeof(arrival), "%d", TIMES[which_row]);
